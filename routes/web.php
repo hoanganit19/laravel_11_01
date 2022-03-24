@@ -21,3 +21,7 @@ Route::get('/', function () {
 Route::get('/san-pham', function () {
     return view('products/lists');
 });
+
+Route::get('/tin-tuc', function () {
+    return view('news/lists');
+});

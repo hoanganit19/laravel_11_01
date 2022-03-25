@@ -182,6 +182,7 @@ coupons: Lưu trữ mã giảm giá
 pages: Lưu trữ trang tĩnh
 - id int primary key
 - title varchar
+- slug varchar
 - content text
 - created_at timestamp
 - updated_at timestamp

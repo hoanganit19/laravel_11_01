@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    //return view('welcome');
     return view('home/main');
 });
 
@@ -25,3 +25,8 @@ Route::get('/san-pham', function () {
 Route::get('/tin-tuc', function () {
     return view('news/lists');
 });
+
+//Route::get('/test', function(){
+//    $faker = Faker\Factory::create();
+//    dd($faker->randomDigit);
+//});

@@ -2,7 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
+//use App\Http\Controllers\HomeController;
 
+use App\Http\Controllers\Clients\HomeController;
+
+use App\Http\Controllers\Admins\DashboardController;
+
+use App\Http\Controllers\Admins\ProductsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,20 +19,46 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('home/main');
-});
-
-Route::get('/san-pham', function () {
-    return view('products/lists');
-});
-
-Route::get('/tin-tuc', function () {
-    return view('news/lists');
-});
-
-//Route::get('/test', function(){
-//    $faker = Faker\Factory::create();
-//    dd($faker->randomDigit);
+//
+//Route::get('/', function (){
+//    echo 'Trang chủ Unicode';
 //});
+
+//Route::post('/', function (){
+//    echo 'Trang chủ Unicode';
+//});
+
+//Route::get('', [HomeController::class, 'index']);
+//
+//Route::get('dang-nhap', [HomeController::class, 'login'])->name('login');
+//
+//Route::post('login', [HomeController::class, 'postLogin']);
+//
+//Route::get('chuyen-muc/{slug}/{id}.html', [HomeController::class, 'category'])->where([
+//    'slug' => '.+',
+//    'id' => '\d+'
+//])->name('category');
+    //->where('slug', '.+')->where('id', '\d+');
+
+//Clients
+Route::get('/', [HomeController::class, 'index']);
+
+
+//Admin
+Route::prefix('admin')->middleware('admin.auth')->name('admin.')->group(function (){
+    Route::get('/', [DashboardController::class, 'index'])->name('index');
+
+    //admin/products/add
+    //admin/products/edit/1
+    //admin/products/delete/1
+
+    Route::prefix('products')->name('products.')->group(function (){
+        Route::get('/', [ProductsController::class, 'index'])->name('index');
+
+        Route::get('add', [ProductsController::class, 'add'])->name('add');
+
+        Route::get('edit/{id}', [ProductsController::class, 'edit'])->name('edit');
+
+        Route::get('delete/{id}', [ProductsController::class, 'delete'])->name('delete');
+    });
+});

@@ -36,6 +36,7 @@ class ComposerStaticInitdc4fb9635a9013221a41b02955c7fb84
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         'ed962a97bd972bc82007176b647d4e36' => __DIR__ . '/..' . '/facade/ignition/src/helpers.php',
+        'cd6300adadbd4f8fd3c2a0a1b3efa58a' => __DIR__ . '/../..' . '/app/Helpers/Functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -546,8 +547,12 @@ class ComposerStaticInitdc4fb9635a9013221a41b02955c7fb84
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\Admins\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admins/DashboardController.php',
+        'App\\Http\\Controllers\\Admins\\ProductsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admins/ProductsController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
+        'App\\Http\\Middleware\\AdminAuthMiddeware' => __DIR__ . '/../..' . '/app/Http/Middleware/AdminAuthMiddeware.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\PreventRequestsDuringMaintenance' => __DIR__ . '/../..' . '/app/Http/Middleware/PreventRequestsDuringMaintenance.php',

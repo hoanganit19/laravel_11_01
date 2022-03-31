@@ -9,6 +9,8 @@ use App\Http\Controllers\Clients\HomeController;
 use App\Http\Controllers\Admins\DashboardController;
 
 use App\Http\Controllers\Admins\ProductsController;
+
+use App\Http\Controllers\Admins\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,7 +47,8 @@ Route::get('/', [HomeController::class, 'index']);
 
 
 //Admin
-Route::prefix('admin')->middleware('admin.auth')->name('admin.')->group(function (){
+Route::prefix('admin')->middleware('auth')->name('admin.')->group(function (){
+
     Route::get('/', [DashboardController::class, 'index'])->name('index');
 
     //admin/products/add
@@ -61,4 +64,28 @@ Route::prefix('admin')->middleware('admin.auth')->name('admin.')->group(function
 
         Route::get('delete/{id}', [ProductsController::class, 'delete'])->name('delete');
     });
+
+    Route::get('profile', [UserController::class, 'profile'])->name('profile');
+
+    Route::post('profile', [UserController::class, 'postProfile']);
+
+    Route::prefix('users')->name('users.')->group(function(){
+
+        Route::get('/', [UserController::class, 'index'])->name('index');
+
+        Route::get('/add', [UserController::class, 'add'])->name('add');
+
+        Route::post('/add', [UserController::class, 'postAdd']);
+
+        Route::get('/edit/{id}', [UserController::class, 'edit'])->name('edit');
+
+        Route::post('/edit/{id}', [UserController::class, 'postEdit']);
+
+        Route::get('/delete/{id}', [UserController::class, 'delete'])->name('delete');
+
+    });
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

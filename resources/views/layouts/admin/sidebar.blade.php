@@ -18,7 +18,14 @@ openSubMenu();
                 <img src="{{asset('admins/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Hoàng An</a>
+                <a href="{{route('admin.profile')}}" class="d-block">{{Auth::user()->name}}</a>
+                <a href="{{ route('logout') }}"
+                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">Thoát</a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
             </div>
         </div>
 
@@ -55,6 +62,30 @@ openSubMenu();
                         </li>
                         <li class="nav-item">
                             <a href="{{route('admin.products.add')}}" class="nav-link {{activeMenu('admin.products.add')}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm mới</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview {{openSubMenu('users')}}">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Người dùng
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('admin.users.index')}}" class="nav-link {{activeMenu('admin.users.index')}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Danh sách</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.users.add')}}" class="nav-link {{activeMenu('admin.users.add')}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Thêm mới</p>
                             </a>

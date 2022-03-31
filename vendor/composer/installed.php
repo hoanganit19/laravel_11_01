@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '26e4ab79d355a89392c3563fa8403f7233a4b0a0',
+        'reference' => 'c669706151f80b8a3ff44022ae43a8bf3fb955c1',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -427,7 +427,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '26e4ab79d355a89392c3563fa8403f7233a4b0a0',
+            'reference' => 'c669706151f80b8a3ff44022ae43a8bf3fb955c1',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -464,6 +464,15 @@
             'install_path' => __DIR__ . '/../laravel/tinker',
             'aliases' => array(),
             'reference' => '1e2d500585a4e546346fadd3adc6f9c1a97e15f4',
+            'dev_requirement' => false,
+        ),
+        'laravel/ui' => array(
+            'pretty_version' => 'v3.4.5',
+            'version' => '3.4.5.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../laravel/ui',
+            'aliases' => array(),
+            'reference' => 'f11d295de1508c5bb56206a620b00b6616de414c',
             'dev_requirement' => false,
         ),
         'league/commonmark' => array(

@@ -43,7 +43,29 @@ openSubMenu();
                     </a>
                 </li>
 
-
+                <li class="nav-item has-treeview {{openSubMenu('categories')}}">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-shopping-cart"></i>
+                        <p>
+                            Danh mục sản phẩm
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('admin.categories.index')}}" class="nav-link {{activeMenu('admin.products.index')}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Danh sách</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.categories.add')}}" class="nav-link {{activeMenu('admin.products.add')}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm mới</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
                 <li class="nav-item has-treeview {{openSubMenu('products')}}">
                     <a href="#" class="nav-link">
@@ -86,6 +108,30 @@ openSubMenu();
                         </li>
                         <li class="nav-item">
                             <a href="{{route('admin.users.add')}}" class="nav-link {{activeMenu('admin.users.add')}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm mới</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview {{openSubMenu('groups')}}">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Nhóm Người dùng
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('admin.groups.index')}}" class="nav-link {{activeMenu('admin.groups.index')}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Danh sách</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.groups.add')}}" class="nav-link {{activeMenu('admin.groups.add')}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Thêm mới</p>
                             </a>

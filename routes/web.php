@@ -11,6 +11,12 @@ use App\Http\Controllers\Admins\DashboardController;
 use App\Http\Controllers\Admins\ProductsController;
 
 use App\Http\Controllers\Admins\UserController;
+
+use App\Http\Controllers\Admins\GroupsController;
+
+use App\Http\Controllers\Admins\CategoriesController;
+
+use Illuminate\Support\Str;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -55,6 +61,25 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function (){
     //admin/products/edit/1
     //admin/products/delete/1
 
+    //Danh mục sản phẩm
+
+    Route::prefix('categories')->name('categories.')->group(function(){
+
+        Route::get('/', [CategoriesController::class, 'index'])->name('index');
+
+        Route::get('/add', [CategoriesController::class, 'add'])->name('add');
+
+        Route::post('/add', [CategoriesController::class, 'postAdd']);
+
+        Route::get('/edit/{category}', [CategoriesController::class, 'edit'])->name('edit');
+
+        Route::post('/edit/{category}', [CategoriesController::class, 'postEdit']);
+
+        Route::get('/delete/{category}', [CategoriesController::class, 'delete'])->name('delete');
+
+    });
+
+    //Sản phẩm
     Route::prefix('products')->name('products.')->group(function (){
         Route::get('/', [ProductsController::class, 'index'])->name('index');
 
@@ -69,6 +94,7 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function (){
 
     Route::post('profile', [UserController::class, 'postProfile']);
 
+    //User
     Route::prefix('users')->name('users.')->group(function(){
 
         Route::get('/', [UserController::class, 'index'])->name('index');
@@ -77,11 +103,32 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function (){
 
         Route::post('/add', [UserController::class, 'postAdd']);
 
-        Route::get('/edit/{id}', [UserController::class, 'edit'])->name('edit');
+        Route::get('/edit/{user}', [UserController::class, 'edit'])->name('edit');
 
-        Route::post('/edit/{id}', [UserController::class, 'postEdit']);
+        Route::post('/edit/{user}', [UserController::class, 'postEdit']);
 
-        Route::get('/delete/{id}', [UserController::class, 'delete'])->name('delete');
+        Route::get('/delete/{user}', [UserController::class, 'delete'])->name('delete');
+
+    });
+
+    //Groups
+    Route::prefix('groups')->name('groups.')->group(function(){
+
+        Route::get('/', [GroupsController::class, 'index'])->name('index');
+
+        Route::get('/add', [GroupsController::class, 'add'])->name('add');
+
+        Route::post('/add', [GroupsController::class, 'postAdd']);
+
+        Route::get('/edit/{group}', [GroupsController::class, 'edit'])->name('edit');
+
+        Route::post('/edit/{group}', [GroupsController::class, 'postEdit']);
+
+        Route::get('/delete/{group}', [GroupsController::class, 'delete'])->name('delete');
+
+        Route::get('/permission/{group}', [GroupsController::class, 'permission'])->name('permission');
+
+        Route::post('/permission/{group}', [GroupsController::class, 'postPermission']);
 
     });
 });
@@ -89,3 +136,7 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function (){
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('test', function (){
+    echo Str::slug('Cuộc chiến thanh toán khí đốt của Nga và EU');
+});

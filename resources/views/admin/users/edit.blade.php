@@ -15,7 +15,7 @@
 <form action="" method="post">
     <div class="mb-3">
         <label for="">Tên</label>
-        <input type="text" class="form-control" name="name" placeholder="Tên của bạn..." value="{{old('name')}}"/>
+        <input type="text" class="form-control" name="name" placeholder="Tên của bạn..." value="{{old('name') ?? $user->name}}"/>
         @error('name')
         <span style="color: red">{{$message}}</span>
         @enderror
@@ -23,7 +23,7 @@
 
     <div class="mb-3">
         <label for="">Email</label>
-        <input type="text" class="form-control" name="email" placeholder="Email..." value="{{old('email')}}"/>
+        <input type="text" class="form-control" name="email" placeholder="Email..." value="{{old('email') ?? $user->email}}"/>
         @error('email')
         <span style="color: red">{{$message}}</span>
         @enderror
@@ -35,7 +35,7 @@
             <option value="">Chọn nhóm</option>
             @if ($groupLists->count()>0)
             @foreach ($groupLists as $item)
-            <option value="{{$item->id}}" {{old('group_id') == $item->id ? 'selected':false}}>{{$item->name}}</option>
+            <option value="{{$item->id}}" {{old('group_id') == $item->id || $user->group_id==$item->id? 'selected':false}}>{{$item->name}}</option>
             @endforeach
             @endif
         </select>
@@ -47,8 +47,8 @@
     <div class="mb-3">
         <label for="">Trạng thái</label>
         <select name="status" class="form-control">
-            <option value="0" {{old('status')==0?'selected':false}}>Chưa kích hoạt</option>
-            <option value="1" {{old('status')==1?'selected':false}}>Kích hoạt</option>
+            <option value="0" {{old('status')==0 || $user->status==0?'selected':false}}>Chưa kích hoạt</option>
+            <option value="1" {{old('status')==1 || $user->status==1?'selected':false}}>Kích hoạt</option>
         </select>
     </div>
 
@@ -68,7 +68,7 @@
         @enderror
     </div>
 
-    <button type="submit" class="btn btn-primary">Thêm mới</button>
+    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
 
     @csrf
 </form>

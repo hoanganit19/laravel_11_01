@@ -26,3 +26,31 @@ function openSubMenu($moduleName=''){
 
     return '';
 }
+
+
+//Đệ quy chuyên mục select option
+function getCategoriesSelect($dataCategories, $parentId=0, $char='', $current=0, $id=0){
+    if (!empty($dataCategories)){
+        foreach ($dataCategories as $key => $item){
+            if ($item->parent_id==$parentId){
+
+                if ($current==$item->id){
+                    $selected = 'selected';
+                }else{
+                    $selected = '';
+                }
+
+                if ($id!=0){
+                    if ($id!==$item->id){
+                        echo '<option value="'.$item->id.'" '.$selected.'>'.$char.$item->name.'</option>';
+                    }
+                }else{
+                    echo '<option value="'.$item->id.'" '.$selected.'>'.$char.$item->name.'</option>';
+                }
+
+                getCategoriesSelect($dataCategories, $item->id, ' -- '.$char, $current, $id);
+                unset($dataCategories[$key]);
+            }
+        }
+    }
+}

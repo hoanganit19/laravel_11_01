@@ -27,6 +27,9 @@
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
+    <script type="text/javascript" src="{{asset('admins/ckeditor/ckeditor.js')}}"></script>
+    <script type="text/javascript" src="{{asset('admins/ckfinder/ckfinder.js')}}"></script>
+
     @yield('css')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -91,6 +94,45 @@
 <script src="{{asset('admins/dist/js/pages/dashboard.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('admins/dist/js/demo.js')}}"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.editor').each(function (index){
+            $(this).attr('id', 'editor_'+(index+1));
+
+            CKEDITOR.replace($(this).attr('id'));
+        }) ;
+
+        //Xử lý chọn ckfinder
+        $('.choose').on('click', function () {
+
+            let currentBtn = $(this);
+
+            CKFinder.popup( {
+                chooseFiles: true,
+                width: 800,
+                height: 600,
+                onInit: function( finder ) {
+                    finder.on( 'files:choose', function( evt ) {
+                        let fileUrl = evt.data.files.first().getUrl();
+//Xử lý chèn link ảnh vào input
+                        currentBtn.parents('.ckfinder-group').find('.render-url').val(fileUrl);
+
+                        currentBtn.parents('.ckfinder-group').find('.preview').attr('src', fileUrl);
+                        currentBtn.parents('.ckfinder-group').find('.preview').show();
+                    } );
+                    finder.on( 'file:choose:resizedImage', function( evt ) {
+                        let fileUrl = evt.data.resizedUrl;
+//Xử lý chèn link ảnh vào input
+                        currentBtn.parents('.ckfinder-group').find('.render-url').val(fileUrl);
+                        currentBtn.parents('.ckfinder-group').find('.preview').attr('src', fileUrl);
+                        currentBtn.parents('.ckfinder-group').find('.preview').show();
+                    } );
+                }
+            } );
+        });
+    });
+</script>
 
 @yield('js')
 </body>

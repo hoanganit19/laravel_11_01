@@ -9,7 +9,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use DB;
 use App\Models\Groups;
-use Illuminate\Testing\Fluent\Concerns\Has;
 
 class UserController extends Controller
 {
@@ -180,25 +179,79 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        return back()->with('msg', 'Thêm người dùng thành công');
+        return redirect()->route('admin.users.index')->with('msg', 'Thêm người dùng thành công');
     }
 
-    public function edit($id){
+    public function edit(User $user){
+
         $pageTitle = 'Cập nhật người dùng';
 
         $groupLists = Groups::all();
 
-        return view('admin/users/add', compact(
+        return view('admin/users/edit', compact(
             'pageTitle',
-            'groupLists'
+            'groupLists',
+            'user'
         ));
     }
 
-    public function postEdit(){
+    public function postEdit(User $user, Request $request){
 
+        //Validate
+        $rules = [
+            'name' => 'required|min:5',
+            'email' => 'required|email|unique:users,email,'.$user->id,
+            'group_id' => 'required|integer',
+           // 'password' => 'required|min:8',
+            //'confirm_password' => 'required|min:8|same:password'
+        ];
+
+        $messages = [
+            'name.required' => 'Họ tên bắt buộc phải nhập',
+            'name.min' => 'Họ tên không được nhỏ hơn :min ký tự',
+            'email.required' => 'Email bắt buộc phải nhập',
+            'email.email' => 'Email không đúng định dạng',
+            'email.unique' => 'Email này bị trùng, vui lòng nhập email khác',
+            'group_id.required' => 'Vui lòng chọn nhóm',
+            'group_id.integer' => 'Nhóm không hợp lệ',
+            'password.required' => 'Mật khẩu bắt buộc phải nhập',
+            'password.min' => 'Mật khẩu phải từ :min kí tự trở lên',
+            'confirm_password.required' => 'Xác nhận mật khẩu bắt buộc phải nhập',
+            'confirm_password.min' => 'Xác nhận mật khẩu phải từ :min ký tự',
+            'confirm_password.same' => 'Xác nhận mật khẩu phải giống mật khẩu'
+        ];
+
+        //Xử lý validate password
+        if (!empty($request->password)){
+            $rules['password'] = 'min:8';
+            $rules['confirm_password'] = 'required|min:8|same:password';
+        }
+
+        $request->validate($rules, $messages);
+
+        //Update dữ liệu
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->group_id = $request->group_id;
+        $user->status = $request->status;
+
+        if (!empty($request->password)){
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->save();
+
+        return back()->with('msg', 'Cập nhật người dùng thành công');
     }
 
-    public function delete($id){
+    public function delete(User $user){
+
+        if (Auth::user()->id!==$user->id){
+            User::destroy($user->id);
+            return redirect()->route('admin.users.index')->with('msg', 'Xoá người dùng thành công');
+        }
+
+        return redirect()->route('admin.users.index')->with('msg', 'Người dùng này không thể xoá');
 
     }
 }

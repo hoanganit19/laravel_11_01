@@ -47,6 +47,9 @@
     </div>
 </form>
 <hr>
+@if (session('msg'))
+<div class="alert alert-success">{{session('msg')}}</div>
+@endif
 <table class="table table-bordered">
     <thead>
     <tr>
@@ -74,7 +77,9 @@
             <a href="{{route('admin.users.edit', $item)}}" class="btn btn-warning">Sửa</a>
         </td>
         <td>
-            <a href="{{route('admin.users.delete', $item)}}" class="btn btn-danger">Xoá</a>
+            @if (Auth::user()->id!==$item->id)
+            <a onclick="return confirm('Bạn có chắc chắn?')" href="{{route('admin.users.delete', $item)}}" class="btn btn-danger">Xoá</a>
+            @endif
         </td>
     </tr>
     @endforeach

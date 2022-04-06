@@ -1,5 +1,4 @@
 <tr>
-    <td>{{$count}}</td>
     <td>{{$char.$childCategory->name}}</td>
     <td>{{\Carbon\Carbon::parse($childCategory->created_at)->format('d/m/Y H:i:s')}}</td>
 

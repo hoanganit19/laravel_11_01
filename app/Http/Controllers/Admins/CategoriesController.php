@@ -69,7 +69,6 @@ class CategoriesController extends Controller
             'banner_url.required' => 'Banner không được để trống'
         ];
 
-
         $request->validate($rules, $messages);
 
         //Thêm mới dữ liệu

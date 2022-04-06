@@ -27,7 +27,6 @@
 <table class="table table-bordered">
     <thead>
     <tr>
-        <th width="5%">STT</th>
         <th>Tên</th>
         <th width="15%">Thời gian</th>
         <th width="5%">Sửa</th>

@@ -85,6 +85,8 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function (){
 
         Route::get('add', [ProductsController::class, 'add'])->name('add');
 
+        Route::post('add', [ProductsController::class, 'postAdd']);
+
         Route::get('edit/{id}', [ProductsController::class, 'edit'])->name('edit');
 
         Route::get('delete/{id}', [ProductsController::class, 'delete'])->name('delete');

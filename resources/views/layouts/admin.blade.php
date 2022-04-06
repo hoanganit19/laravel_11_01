@@ -30,6 +30,7 @@
     <script type="text/javascript" src="{{asset('admins/ckeditor/ckeditor.js')}}"></script>
     <script type="text/javascript" src="{{asset('admins/ckfinder/ckfinder.js')}}"></script>
 
+    <link rel="stylesheet" href="{{asset('admins/dist/css/custom.css')}}">
     @yield('css')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -104,7 +105,7 @@
         }) ;
 
         //Xử lý chọn ckfinder
-        $('.choose').on('click', function () {
+        $('body form').on('click', '.choose', function () {
 
             let currentBtn = $(this);
 
@@ -130,6 +131,29 @@
                     } );
                 }
             } );
+        });
+
+        //Xử lý thêm nhiều ảnh (gallery)
+        let galleryItem = `<div class="gallery-item">
+                    <div class="row ckfinder-group">
+                        <div class="col-10">
+                            <input type="text" class="form-control render-url" name="gallery[]" placeholder="Đường dẫn ảnh..." value=""/>
+                            <p><img class="preview thumbnail" style="display: none; width: 200px; margin-top: 5px;" src="" alt=""></p>
+                        </div>
+                        <div class="col-2">
+                            <button type="button" class="btn btn-success choose">Chọn</button>
+                            <button type="button" class="btn btn-danger remove">&times;</button>
+                        </div>
+                    </div>
+                </div><!--End .gallery-item-->`;
+        $('.add-image').on('click', function(){
+            $('.gallery-lists').append(galleryItem);
+        });
+
+        $('.gallery-lists').on('click', '.remove', function(){
+            if (confirm('Bạn có chắc chắn muốn xoá?')){
+                $(this).parents('.gallery-item').remove();
+            }
         });
     });
 </script>

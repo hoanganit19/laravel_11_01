@@ -1,5 +1,4 @@
 <tr>
-    <td>{{$count}}</td>
     <td>{{$item->name}}</td>
     <td>{{\Carbon\Carbon::parse($item['created_at'])->format('d/m/Y H:i:s')}}</td>
 

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Categories;
 use App\Models\ProductsGallery;
+use App\Models\ProductsAttributes;
 
 class Products extends Model
 {
@@ -25,6 +26,14 @@ class Products extends Model
     public function galleries(){
         return $this->hasMany(
             ProductsGallery::class,
+            'product_id',
+            'id'
+        );
+    }
+
+    public function attributes(){
+        return $this->hasMany(
+            ProductsAttributes::class,
             'product_id',
             'id'
         );

@@ -57,7 +57,7 @@
         <label for="">Ảnh đại diện</label>
         <div class="row ckfinder-group">
             <div class="col-10">
-                <input type="text" class="form-control render-url" name="thumbnail" placeholder="Đường dẫn ảnh..." value="{{old('banner_url')}}"/>
+                <input type="text" class="form-control render-url" name="thumbnail" placeholder="Đường dẫn ảnh..." value="{{old('thumbnail')}}"/>
                 <p><img class="preview thumbnail" style="display: none; width: 200px; margin-top: 5px;" src="" alt=""></p>
             </div>
             <div class="col-2">
@@ -114,6 +114,40 @@
         @error('category_id')
         <span style="color: red">{{$message}}</span>
         @enderror
+    </div>
+    @php
+        if (old('attribute')){
+            $attributeArr = old('attribute');
+        }else{
+            $attributeArr = [];
+        }
+
+    @endphp
+    <div class="mb-3">
+        <label for="">Thuộc tính</label>
+        <hr>
+        <div class="list-categories">
+            @if ($attributes->count()>0)
+                @foreach ($attributes as $attribute)
+                    <p><b><i>{{$attribute->name}}</i></b></p>
+                    <div class="row attributes-wrap" data-attribute="{{$attribute->id}}">
+                    @if ($attribute->values)
+
+                            @foreach ($attribute->values as $value)
+                                <div class="col-2">
+                                    <label for="attribute_{{$attribute->id}}_{{$value->id}}"><input type="checkbox" name="attribute[{{$attribute->id}}][]" id="attribute_{{$attribute->id}}_{{$value->id}}" value="{{$value->id}}" {{!empty($attributeArr[$attribute->id]) && in_array($value->id, $attributeArr[$attribute->id]) ? 'checked':false}}/> {{$value->value}}</label>
+                                </div>
+                            @endforeach
+
+                        @endif
+                        <div class="col-2">
+                            <button type="button" class="btn btn-success btn-sm add-attr-values">Thêm giá trị</button>
+                        </div>
+                    </div>
+                    <hr>
+                @endforeach
+            @endif
+        </div>
     </div>
 
     <div class="mb-3">

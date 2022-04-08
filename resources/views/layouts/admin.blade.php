@@ -155,6 +155,45 @@
                 $(this).parents('.gallery-item').remove();
             }
         });
+
+        if ($('.add-attr-values').length>0){
+            $('.add-attr-values').on('click', function(){
+
+                let currentBtn = $(this);
+
+                let value = prompt('Nhập giá trị');
+
+                if (value!==null && value.trim()!==''){
+                    let attributeId = $(this).parents('.attributes-wrap').data('attribute');
+
+                    if (attributeId>0){
+                        $.ajax({
+                            url: '{{route("admin.attribute.values.post-data")}}',
+                            type: 'POST',
+                            data: {
+                                value: value,
+                                attribute_id: attributeId,
+                                _token: "{{csrf_token()}}"
+                            },
+                            dataType: 'json',
+
+                            success: function(response){
+                                if (response.status=='ok'){
+                                    let valueData = response.data;
+                                    let valueItem = `<div class="col-2">
+            <label for="attribute_${valueData.attribute_id}_${valueData.id}"><input type="checkbox" name="attribute[${valueData.attribute_id}][]" id="attribute_${valueData.attribute_id}_${valueData.id}" value="${valueData.id}"/> ${valueData.value}</label>
+            </div>`;
+                                    currentBtn.parents('.attributes-wrap').prepend(valueItem);
+                                }
+                            },
+                            error: function(error){
+
+                            }
+                        });
+                    }
+                }
+            });
+        }
     });
 </script>
 

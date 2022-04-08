@@ -45,7 +45,7 @@ openSubMenu();
 
                 <li class="nav-item has-treeview {{openSubMenu('categories')}}">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-shopping-cart"></i>
+                        <i class="nav-icon fas fa-bars"></i>
                         <p>
                             Danh mục sản phẩm
                             <i class="fas fa-angle-left right"></i>
@@ -60,6 +60,31 @@ openSubMenu();
                         </li>
                         <li class="nav-item">
                             <a href="{{route('admin.categories.add')}}" class="nav-link {{activeMenu('admin.products.add')}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm mới</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview {{openSubMenu('attributes')}}">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fab fa-creative-commons-by"></i>
+                        <p>
+                            Thuộc tính sản phẩm
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('admin.attributes.index')}}" class="nav-link {{activeMenu('admin.attributes.index')}}">
+                                <i class="far fa-circle nav-icon"></i>
+
+                                <p>Danh sách</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.attributes.add')}}" class="nav-link {{activeMenu('admin.attributes.add')}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Thêm mới</p>
                             </a>

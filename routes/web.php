@@ -17,6 +17,10 @@ use App\Http\Controllers\Admins\GroupsController;
 use App\Http\Controllers\Admins\CategoriesController;
 
 use Illuminate\Support\Str;
+
+use App\Http\Controllers\Admins\AttributesController;
+
+use App\Http\Controllers\Admins\AttributesValuesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -79,6 +83,36 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function (){
 
     });
 
+    //Thuộc tính
+    Route::prefix('attributes')->name('attributes.')->group(function (){
+        Route::get('/', [AttributesController::class, 'index'])->name('index');
+
+        Route::get('add', [AttributesController::class, 'add'])->name('add');
+
+        Route::post('add', [AttributesController::class, 'postAdd']);
+
+        Route::get('edit/{attribute}', [AttributesController::class, 'edit'])->name('edit');
+
+        Route::post('edit/{attribute}', [AttributesController::class, 'postEdit'])->name('edit');
+
+        Route::get('delete/{attribute}', [AttributesController::class, 'delete'])->name('delete');
+    });
+
+    //Giá trị thuộc tính
+    Route::prefix('attribute/values')->name('attribute.values.')->group(function (){
+        Route::get('/{attribute}', [AttributesValuesController::class, 'index'])->name('index');
+
+        Route::post('add/{attribute}', [AttributesValuesController::class, 'postAdd'])->name('add');
+
+        Route::get('edit/{attribute}/{value}', [AttributesValuesController::class, 'edit'])->name('edit');
+
+        Route::post('edit/{attribute}/{value}', [AttributesValuesController::class, 'postEdit']);
+
+        Route::get('delete/{attribute}/{value}', [AttributesValuesController::class, 'delete'])->name('delete');
+
+        Route::post('post-data', [AttributesValuesController::class, 'postData'])->name('post-data');
+    });
+
     //Sản phẩm
     Route::prefix('products')->name('products.')->group(function (){
         Route::get('/', [ProductsController::class, 'index'])->name('index');
@@ -87,9 +121,11 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function (){
 
         Route::post('add', [ProductsController::class, 'postAdd']);
 
-        Route::get('edit/{id}', [ProductsController::class, 'edit'])->name('edit');
+        Route::get('edit/{product}', [ProductsController::class, 'edit'])->name('edit');
 
-        Route::get('delete/{id}', [ProductsController::class, 'delete'])->name('delete');
+        Route::post('edit/{product}', [ProductsController::class, 'postEdit'])->name('edit');
+
+        Route::get('delete/{product}', [ProductsController::class, 'delete'])->name('delete');
     });
 
     Route::get('profile', [UserController::class, 'profile'])->name('profile');

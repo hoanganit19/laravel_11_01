@@ -19,8 +19,12 @@
         <th width="5%">STT</th>
         <th>Giá trị</th>
         <th width="20%">Thời gian</th>
+        @can('attribute.edit')
         <th width="5%">Sửa</th>
+        @endcan
+        @can('attribute.delete')
         <th width="5%">Xoá</th>
+        @endcan
     </tr>
     </thead>
     <tbody>
@@ -34,12 +38,16 @@
         </td>
         <td>{{\Carbon\Carbon::parse($item['created_at'])->format('d/m/Y H:i:s')}}</td>
 
+        @can('attribute.edit')
         <td>
             <a href="{{route('admin.attribute.values.edit', [$attribute, $item])}}" class="btn btn-warning">Sửa</a>
         </td>
+        @endcan
+        @can('attribute.delete')
         <td>
             <a onclick="return confirm('Bạn có chắc chắn?')" href="{{route('admin.attribute.values.delete', [$attribute, $item])}}" class="btn btn-danger">Xoá</a>
         </td>
+        @endcan
     </tr>
     @endforeach
     @else

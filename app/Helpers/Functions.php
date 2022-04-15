@@ -1,4 +1,7 @@
 <?php
+use App\Models\Options;
+use App\Models\Groups;
+
 function activeMenu($routeName){
     $currentUrl = request()->url();
     $currentUrl = trim($currentUrl, '/');
@@ -77,3 +80,47 @@ function getCategoriesCheckbox($dataCategories, $parentId=0, $char='', $current=
         }
     }
 }
+
+function getOption($key=''){
+    if (!empty($key)){
+        $option = Options::where('opt_key', $key)->first();
+        if (!empty($option)){
+            return $option->opt_value;
+        }
+    }else{
+        $options = Options::all();
+        $optionsArr = [];
+        if ($options->count()>0){
+            foreach ($options as $option){
+                $optionsArr[$option->opt_key] = $option->opt_value;
+            }
+        }
+        return $optionsArr;
+    }
+
+    return;
+}
+
+function hasPermission($groupId, $module, $role){
+    $group = Groups::find($groupId);
+
+    if (!empty($group)){
+        $roleJson = $group->permissions;
+        if (!empty($roleJson)){
+            $roleArr = json_decode($roleJson, true);
+            if (!empty($roleArr[$module]) && in_array($role, $roleArr[$module])){
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+
+
+
+
+
+
+

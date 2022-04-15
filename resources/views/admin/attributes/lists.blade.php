@@ -4,8 +4,10 @@
 
 @section('content')
 
+@can('attributes.add')
 <a href="{{route('admin.attributes.add')}}" class="btn btn-primary">Thêm mới</a>
 <hr>
+@endcan
 <form action="" method="get">
     <div class="row">
 
@@ -31,8 +33,12 @@
         <th>Tên</th>
         <th width="15%">Thời gian</th>
         <th width="15%">Giá trị</th>
+        @can('attributes.edit')
         <th width="5%">Sửa</th>
+        @endcan
+        @can('attributes.delete')
         <th width="5%">Xoá</th>
+        @endcan
     </tr>
     </thead>
     <tbody>
@@ -44,15 +50,21 @@
             {{$item->name}}
         </td>
         <td>{{\Carbon\Carbon::parse($item['created_at'])->format('d/m/Y H:i:s')}}</td>
+
         <td>
             <a href="{{route('admin.attribute.values.index', $item)}}" class="btn btn-primary">Xem giá trị</a>
         </td>
+
+        @can('attributes.edit')
         <td>
             <a href="{{route('admin.attributes.edit', $item)}}" class="btn btn-warning">Sửa</a>
         </td>
+        @endcan
+        @can('attributes.delete')
         <td>
             <a onclick="return confirm('Bạn có chắc chắn?')" href="{{route('admin.attributes.delete', $item)}}" class="btn btn-danger">Xoá</a>
         </td>
+        @endcan
     </tr>
     @endforeach
     @else

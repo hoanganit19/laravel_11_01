@@ -3,9 +3,10 @@
 @section('title', $pageTitle)
 
 @section('content')
-
+@can('users.add')
 <a href="{{route('admin.users.add')}}" class="btn btn-primary">Thêm mới</a>
 <hr>
+@endcan
 <form action="" method="get">
     <div class="row">
         <div class="col-3">
@@ -59,8 +60,12 @@
         <th>Nhóm</th>
         <th width="15%">Trạng thái</th>
         <th width="15%">Thời gian</th>
+        @can('users.edit')
         <th width="5%">Sửa</th>
+        @endcan
+        @can('users.delete')
         <th width="5%">Xoá</th>
+        @endcan
     </tr>
     </thead>
     <tbody>
@@ -73,14 +78,18 @@
         <td>{{!empty($item->group->name)?$item->group->name:''}}</td>
         <td>{!!$item->status==0 ? '<button class="btn btn-warning btn-sm">Chưa kích hoạt</button>':'<button class="btn btn-success btn-sm">Kích hoạt</button>'!!}</td>
         <td>{{\Carbon\Carbon::parse($item['created_at'])->format('d/m/Y H:i:s')}}</td>
+        @can('users.edit')
         <td>
             <a href="{{route('admin.users.edit', $item)}}" class="btn btn-warning">Sửa</a>
         </td>
+        @endcan
+        @can('users.delete')
         <td>
             @if (Auth::user()->id!==$item->id)
             <a onclick="return confirm('Bạn có chắc chắn?')" href="{{route('admin.users.delete', $item)}}" class="btn btn-danger">Xoá</a>
             @endif
         </td>
+        @endcan
     </tr>
     @endforeach
     @else

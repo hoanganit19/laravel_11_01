@@ -13,6 +13,7 @@
 @endif
 
 <div class="row">
+    @can('attributes.edit')
     <div class="col-6">
         <form action="" method="post">
             <div class="mb-3">
@@ -28,7 +29,12 @@
             @csrf
         </form>
     </div>
+    @endcan
+    @can('attributes.edit')
     <div class="col-6">
+    @else
+        <div class="col-12">
+    @endcan
         @include('admin.attributes_values.table')
     </div>
 </div>

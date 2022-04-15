@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admins;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Groups;
+use App\Models\Modules;
 
 class GroupsController extends Controller
 {
@@ -109,12 +110,31 @@ class GroupsController extends Controller
     public function permission(Groups $group){
         $pageTitle = 'Phân quyền: '.$group->name;
 
+        $modules = Modules::all();
+
+//        $roleJson = $group->permissions;
+//        $roleArr = json_decode($roleJson, true);
+//        dd($roleArr);
+
         return view('admin/groups/permission', compact(
-            'pageTitle'
+            'pageTitle',
+            'modules',
+            'group'
         ));
     }
 
-    public function postPermission(Groups $groups){
+    public function postPermission(Groups $group, Request $request){
+        $roleArr = $request->role;
 
+        $roleJson = null;
+
+        if (!empty($roleArr)){
+            $roleJson = json_encode($roleArr);
+        }
+
+        $group->permissions = $roleJson;
+        $group->save();
+
+        return back()->with('msg', 'Phân quyền thành công');
     }
 }

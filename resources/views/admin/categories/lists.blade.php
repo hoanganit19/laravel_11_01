@@ -4,8 +4,10 @@
 
 @section('content')
 
+@can('categories.add')
 <a href="{{route('admin.categories.add')}}" class="btn btn-primary">Thêm mới</a>
 <hr>
+@endcan
 <form action="" method="get">
     <div class="row">
 
@@ -29,8 +31,12 @@
     <tr>
         <th>Tên</th>
         <th width="15%">Thời gian</th>
-        <th width="5%">Sửa</th>
-        <th width="5%">Xoá</th>
+        @can('categories.edit')
+            <th width="5%">Sửa</th>
+        @endcan
+        @can('categories.delete')
+            <th width="5%">Xoá</th>
+        @endcan
     </tr>
     </thead>
     <tbody>

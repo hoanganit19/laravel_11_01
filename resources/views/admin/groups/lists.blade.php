@@ -3,9 +3,10 @@
 @section('title', $pageTitle)
 
 @section('content')
-
+@can('groups.add')
 <a href="{{route('admin.groups.add')}}" class="btn btn-primary">Thêm mới</a>
 <hr>
+@endcan
 <form action="" method="get">
     <div class="row">
 
@@ -30,9 +31,15 @@
         <th width="5%">STT</th>
         <th>Tên</th>
         <th width="15%">Thời gian</th>
+        @can('groups.permission')
         <th width="15%">Phân quyền</th>
+        @endcan
+        @can('groups.edit')
         <th width="5%">Sửa</th>
+        @endcan
+        @can('groups.delete')
         <th width="5%">Xoá</th>
+        @endcan
     </tr>
     </thead>
     <tbody>
@@ -42,15 +49,21 @@
         <td>{{$key + 1}}</td>
         <td>{{$item->name}}</td>
         <td>{{\Carbon\Carbon::parse($item['created_at'])->format('d/m/Y H:i:s')}}</td>
+        @can('groups.permission')
         <td>
             <a href="{{route('admin.groups.permission', $item)}}" class="btn btn-primary">Phân quyền</a>
         </td>
+        @endcan
+        @can('groups.edit')
         <td>
             <a href="{{route('admin.groups.edit', $item)}}" class="btn btn-warning">Sửa</a>
         </td>
+        @endcan
+        @can('groups.delete')
         <td>
             <a onclick="return confirm('Bạn có chắc chắn?')" href="{{route('admin.groups.delete', $item)}}" class="btn btn-danger">Xoá</a>
         </td>
+        @endcan
     </tr>
     @endforeach
     @else

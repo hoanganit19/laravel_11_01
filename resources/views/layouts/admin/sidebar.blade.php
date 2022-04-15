@@ -43,6 +43,7 @@ openSubMenu();
                     </a>
                 </li>
 
+                @can('categories.view')
                 <li class="nav-item has-treeview {{openSubMenu('categories')}}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-bars"></i>
@@ -58,15 +59,19 @@ openSubMenu();
                                 <p>Danh sách</p>
                             </a>
                         </li>
+                        @can('categories.add')
                         <li class="nav-item">
                             <a href="{{route('admin.categories.add')}}" class="nav-link {{activeMenu('admin.products.add')}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Thêm mới</p>
                             </a>
                         </li>
+                        @endcan
                     </ul>
                 </li>
+                @endcan
 
+                @can('attributes.view')
                 <li class="nav-item has-treeview {{openSubMenu('attributes')}}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fab fa-creative-commons-by"></i>
@@ -83,15 +88,19 @@ openSubMenu();
                                 <p>Danh sách</p>
                             </a>
                         </li>
+                        @can('attributes.add')
                         <li class="nav-item">
                             <a href="{{route('admin.attributes.add')}}" class="nav-link {{activeMenu('admin.attributes.add')}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Thêm mới</p>
                             </a>
                         </li>
+                        @endcan
                     </ul>
                 </li>
+                @endcan
 
+                @can('products.view')
                 <li class="nav-item has-treeview {{openSubMenu('products')}}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-shopping-cart"></i>
@@ -107,15 +116,19 @@ openSubMenu();
                                 <p>Danh sách</p>
                             </a>
                         </li>
+                        @can('products.add')
                         <li class="nav-item">
                             <a href="{{route('admin.products.add')}}" class="nav-link {{activeMenu('admin.products.add')}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Thêm mới</p>
                             </a>
                         </li>
+                        @endcan
                     </ul>
                 </li>
+                @endcan
 
+                @can('users.view')
                 <li class="nav-item has-treeview {{openSubMenu('users')}}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-user"></i>
@@ -131,15 +144,20 @@ openSubMenu();
                                 <p>Danh sách</p>
                             </a>
                         </li>
+
+                        @can('users.add')
                         <li class="nav-item">
                             <a href="{{route('admin.users.add')}}" class="nav-link {{activeMenu('admin.users.add')}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Thêm mới</p>
                             </a>
                         </li>
+                        @endcan
                     </ul>
                 </li>
+                @endcan
 
+                @can('groups.view')
                 <li class="nav-item has-treeview {{openSubMenu('groups')}}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
@@ -155,14 +173,108 @@ openSubMenu();
                                 <p>Danh sách</p>
                             </a>
                         </li>
+                        @can('groups.add')
                         <li class="nav-item">
                             <a href="{{route('admin.groups.add')}}" class="nav-link {{activeMenu('admin.groups.add')}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Thêm mới</p>
                             </a>
                         </li>
+                        @endcan
                     </ul>
                 </li>
+                @endcan
+
+                @can('options.general')
+                    @php
+                        $checkGeneral = true;
+                    @endphp
+                @endcan
+
+                @can('options.header')
+                    @php
+                    $checkHeader = true;
+                    @endphp
+                @endcan
+
+                @can('options.footer')
+                    @php
+                    $checkFooter = true;
+                    @endphp
+                @endcan
+
+                @can('options.home')
+                    @php
+                    $checkHome = true;
+                    @endphp
+                @endcan
+
+                @can('options.menu')
+                    @php
+                    $checkMenu = true;
+                    @endphp
+                @endcan
+
+                @if (!empty($checkGeneral) || !empty($checkHeader) || !empty($checkFooter) || !empty($checkHome) || !empty($checkMenu))
+                <li class="nav-item has-treeview {{openSubMenu('options')}}">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-cogs"></i>
+                        <p>
+                            Thiết lập
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        @can('options.general')
+                        <li class="nav-item">
+                            <a href="{{route('admin.options.index')}}" class="nav-link {{activeMenu('admin.options.index')}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thiết lập chung</p>
+                            </a>
+                        </li>
+                        @endcan
+
+                        @can('options.header')
+
+                        <li class="nav-item">
+                            <a href="{{route('admin.options.header')}}" class="nav-link {{activeMenu('admin.options.header')}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thiết lập Header</p>
+                            </a>
+                        </li>
+                        @endcan
+
+                        @can('options.footer')
+                        <li class="nav-item">
+                            <a href="{{route('admin.options.footer')}}" class="nav-link {{activeMenu('admin.options.footer')}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thiết lập Footer</p>
+                            </a>
+                        </li>
+                        @endcan
+
+                        @can('options.home')
+                        <li class="nav-item">
+                            <a href="{{route('admin.options.home')}}" class="nav-link {{activeMenu('admin.options.home')}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thiết lập trang chủ</p>
+                            </a>
+                        </li>
+                        @endcan
+
+                        @can('options.menu')
+                        <li class="nav-item">
+                            <a href="{{route('admin.options.menu')}}" class="nav-link {{activeMenu('admin.options.menu')}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thiết lập Menu</p>
+                            </a>
+                        </li>
+                        @endcan
+
+
+                    </ul>
+                </li>
+                @endif
 
             </ul>
         </nav>
